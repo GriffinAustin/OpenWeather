@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<h1>{{ data.name}}</h1>
-<p>Location: {{ lat }}, {{ lng }}</p>
-<p>Temperature: {{ data.temperature }}&deg;F</p>
-<p>Wind: {{ data.wind }}</p>
+
+<h1>{{ loc }}</h1>
+
+{% for day in data %}
+  <div class="data">
+    <h1>{{ data[day].name }}</h1>
+    <p>{{ data[day].temperature }} &deg;F</p>
+  </div>
+{% endfor %}
