@@ -5,6 +5,8 @@ import geocoder
 app = Flask(__name__)
 
 # Get geolocation of user
+city_state = requests.get('https://ipinfo.io/json')
+loc = '{}, {}'.format(city_state.json()['city'], city_state.json()['region'])
 geoloc = geocoder.ip('me')
 lat = geoloc.latlng[0]
 lng = geoloc.latlng[1]
@@ -12,8 +14,6 @@ lng = geoloc.latlng[1]
 # Define API
 api_endpoint = 'https://api.weather.gov'
 api_uri = api_endpoint + '/points/{},{}'.format(str(lat), str(lng))
-r = requests.get(api_uri)
-loc = r.json()['properties']['relativeLocation']['properties']['city'] + ', ' + r.json()['properties']['relativeLocation']['properties']['state']
 
 def get_forecast():
     # Retrieve uri
@@ -22,7 +22,6 @@ def get_forecast():
     r = requests.get(forecast_uri)
 
     # Loop through forecast data
-    properties = r.json()['properties']
     periods = r.json()['properties']['periods']
     num_of_periods = len(periods)
     data = {}
@@ -42,4 +41,4 @@ def main():
 
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug=True)
