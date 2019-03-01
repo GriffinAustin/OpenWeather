@@ -28,7 +28,7 @@ def get_forecast():
 @app.route("/")
 def main():
     data = get_forecast()
-    return render_template('base.html', lat=lat, lng=lng, period=data['name'], temperature=data['temperature'], wind=data['wind'])
+    return render_template('base.html', lat=lat, lng=lng, data=data)
 
 
 if __name__ == "__main__":
